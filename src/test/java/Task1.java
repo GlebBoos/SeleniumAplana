@@ -59,46 +59,48 @@ public class Task1 {
         driver.get(baseUrl);
 
         //Открытие вкладки "Застраховать себя и имущество"
-        driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/table/tbody/tr/td/div/div/div/div/div/div[1]/div[1]/div[4]/div/div/div/ul/li[5]/a/span/span[1]")).click();
-        wait.until(ExpectedConditions.visibilityOf(
-                driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/table/tbody/tr/td/div/div/div/div/div/div[1]/div[1]/div[4]/div/div/div/ul/li[5]/div/div/div[2]/div/a"))));
+        driver.findElement(By.xpath("//span[contains(text(),'Застраховать себя')]/parent::*/parent::*/parent::*"));
+        wait.until(ExpectedConditions.elementToBeClickable(
+                driver.findElement(By.xpath("//div[contains(@class,'header_more_nav')]//*[contains(text(), 'Застраховать себя')]")))).click();
+
 
         //Открыть вкладку "Страхование путешественников"
-        driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/table/tbody/tr/td/div/div/div/div/div/div[1]/div[1]/div[4]/div/div/div/ul/li[5]/div/div/div[2]/div/a")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(
+                driver.findElement(By.xpath("//div[contains(@class,'header_more_nav')]//*[contains(text(), 'Страхование путешественников')]")))).click();
 
         //Проверка наличия "Страхование путешественников"
         assertEquals("Страхование путешественников",
-                driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div/div/div/div/div/h1")).getText());
+                driver.findElement(By.xpath("//h1[contains(text(),'Страхование путешественников')]")).getText());
 
         //Открытие окна "Оформить онлайн" c переключением на новое окно
         String winHandleBefore = driver.getWindowHandle();
-        driver.findElement(By.xpath("//*[@id=\"SBRF_TabContainer_sb_bundle-47610460\"]/div/div[1]/div/div[1]/div/div/div/div/div/p/a/img")).click();
+        driver.findElement(By.xpath("//a//img [contains(@src,'banner-zashita-traveler')]")).click();
         for(String winHandle : driver.getWindowHandles()){
             driver.switchTo().window(winHandle);
         }
+
+        //Выбор минимального пакета
         wait.until(ExpectedConditions.visibilityOf(
-                driver.findElement(By.xpath("//*[@id=\"views\"]/form/section/section/section[2]/div[1]/div[1]/div/div[1]"))));
-        driver.findElement(By.xpath("//*[@id=\"views\"]/form/section/section/section[2]/div[1]/div[1]/div/div[1]")).click();
+                driver.findElement(By.xpath("//div [contains(text(),'Минимальная')]/parent::*/parent::*"))));
+        driver.findElement(By.xpath("//div [contains(text(),'Минимальная')]/parent::*/parent::*")).click();
 
         //Нажать на кнопку "Оформить"
-        driver.findElement(By.xpath("//*[@id=\"views\"]/form/section/section/section[6]/span/span")).click();
+        driver.findElement(By.xpath("//span [contains(text(),'Оформить')]")).click();
 
         //Ввод данных в заявку по застрахованным
         fillField(By.name("insured0_surname"), "Gleb");
         fillField(By.name("insured0_name"), "Boos");
         fillField(By.name("insured0_birthDate"), "17.09.1994");
-        driver.findElement(By.xpath("//*[@id=\"views\"]/section/form/section/section[1]/div/insured-input/div/fieldset[4]/div/img")).click();
 
         //Ввод данных в заявку по стразователю
         fillField(By.name("surname"), "Иванов");
         fillField(By.name("name"), "Иван");
         fillField(By.name("middlename"), "Иванович");
         fillField(By.name("birthDate"), "17.09.1994");
-        driver.findElement(By.xpath("//*[@id=\"views\"]/section/form/section/section[2]/div/fieldset[8]/span[1]/input")).click();
 
         //Ввод данных паспорта
         fillField(By.name("passport_series"), "1111");
-        fillField(By.name("passport_number"), "1111111");
+        fillField(By.name("passport_number"), "111111");
         fillField(By.name("issuePlace"), "Москва");
         //fillField(By.name("issueDate"), "17.09.1994"); //Не заполняется для ошибки, что не все данные введены
 
@@ -107,14 +109,35 @@ public class Task1 {
         fillField(By.name("email"), "gboos@aplana.com");
         fillField(By.name("emailValid"), "gboos@aplana.com");
 
+        //Проверка ввода данных в заявку по застрахованным
+        Assert.assertEquals("Gleb",driver.findElement(By.name("insured0_surname")).getAttribute("value"));
+        Assert.assertEquals("Boos",driver.findElement(By.name("insured0_name")).getAttribute("value"));
+        Assert.assertEquals("17.09.1994",driver.findElement(By.name("insured0_birthDate")).getAttribute("value"));
+
+        //Проверка ввода данных в заявку по стразователю
+        Assert.assertEquals("Иванов",driver.findElement(By.name("surname")).getAttribute("value"));
+        Assert.assertEquals("Иван",driver.findElement(By.name("name")).getAttribute("value"));
+        Assert.assertEquals("Иванович",driver.findElement(By.name("middlename")).getAttribute("value"));
+        Assert.assertEquals("17.09.1994",driver.findElement(By.name("birthDate")).getAttribute("value"));
+
+
+        //Проверка ввода данных паспорта
+        Assert.assertEquals("1111",driver.findElement(By.name("passport_series")).getAttribute("value"));
+        Assert.assertEquals("111111",driver.findElement(By.name("passport_number")).getAttribute("value"));
+        Assert.assertEquals("Москва",driver.findElement(By.name("issuePlace")).getAttribute("value"));
+        //Assert.assertEquals("17.09.1994",driver.findElement(By.name("issueDate")).getAttribute("value")); //Не заполняется для ошибки, что не все данные введены
+
+        //Проверка ввода данных телефона
+        Assert.assertEquals("(985) 683-3950",driver.findElement(By.name("phone")).getAttribute("value"));
+        Assert.assertEquals("gboos@aplana.com",driver.findElement(By.name("email")).getAttribute("value"));
+        Assert.assertEquals("gboos@aplana.com",driver.findElement(By.name("emailValid")).getAttribute("value"));
+
         //Нажмимаем на кнопку "Продолжить"
-        driver.findElement(By.xpath("//*[@id=\"views\"]/section/form/section/section[5]/div[1]/span[2]")).click();
+        driver.findElement(By.xpath("//span [contains(text(),'Продолжить')]")).click();
 
         //Проверяем, что не все поля заполнены
         assertEquals("Заполнены не все обязательные поля",
-                driver.findElement(By.xpath("//*[@id=\"views\"]/section/form/section/section[5]/div[2]/div[1]")).getText());
-        String l;
-        //l=driver.findElement(By.xpath("//*[@id=\"views\"]/section/form/section/section[5]/div[2]/div[1]")).getText();
+                driver.findElement(By.xpath("//div [text()='Заполнены не все обязательные поля']")).getText());
 
     }
 
