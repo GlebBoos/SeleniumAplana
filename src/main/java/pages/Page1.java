@@ -32,10 +32,6 @@ public class Page1 {
     public WebElement getTravelInsuranceElement (String name) {
         return menu.findElement(By.xpath(".//a[contains(text(),'" + name + "')]"));
     }
-    public void fillField(WebElement element, String value) {
-        element.clear();
-        element.sendKeys(value);
-    }
 
     public void waitElement (WebElement element) {
         Wait<WebDriver> wait = new WebDriverWait(driver, 30, 1000);

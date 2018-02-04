@@ -1,54 +1,73 @@
 import org.junit.Test;
 import pages.Page1;
-import pages.Page2;
 import pages.Page3;
+import pages.Page2;
 
 public class Task2 extends BaseTest{
     @Test
-    public void testSberbank(){
+    public void Task2Selenium(){
+
+        //Инициализация страниц
         Page1 page1 = new Page1(driver);
+        Page2 page2 = new Page2(driver);
+        Page3 Page3 = new Page3(driver);
+
+        //Выполнение команд для основной страницы
         page1.selectSection("Застраховать себя  и имущество");
         page1.waitElement(page1.getTravelInsuranceElement("Страхование путешественников"));
         page1.travelInsurance("Страхование путешественников");
 
-        Page3 page3 = new Page3(driver);
-        page3.waitElement(page3.getTitle());
-        page3.checkTitleErrorMessage("Страхование путешественников");
-        page3.checkOutOnline();
-        page3.switchWindow();
+        //Выполнение команд для страницы страхования путешественников
+        page2.waitElement(page2.getTitle());
+        page2.checkTitleErrorMessage("Страхование путешественников");
+        page2.checkOutOnline();
+        page2.switchWindow();
 
-        Page2 page2 = new Page2(driver);
-        page2.chooseSum("Минимальная");
-        page2.execute();
+        //Выбор минимального макета для страхования на третьей странице
+        Page3.chooseSum("Минимальная");
+        Page3.execute();
 
-        page2.fillField("фамилия застрахованного", "Ivanov");
-        page2.fillField("имя застрахованного", "Ivan");
-        page2.fillField("дата рождения застрахованного", "01.01.1999");
-        page2.fillField("фамилия", "Петров");
-        page2.fillField("имя", "Петр");
-        page2.fillField("отчество", "Петрович");
-        page2.fillField("день рождения", "01.01.1989");
-        page2.fillField("серия паспорта", "1234");
-        page2.fillField("номер паспорта", "222222");
-        page2.fillField("дата выдачи", "14.03.2009");
-        page2.fillField("место выдачи", "Трололо");
-        page2.chooseGender("мужской");
+        //Ввод данных в заявку по застрахованным
+        Page3.fillField("фамилия застрахованного", "Boos");
+        Page3.fillField("имя застрахованного", "Gleb");
+        Page3.fillField("дата рождения застрахованного", "17.09.1994");
 
-        page2.checkFields("фамилия застрахованного","Ivanov");
-        page2.checkFields("имя застрахованного","Ivan");
-        page2.checkFields("дата рождения застрахованного", "01.01.1999");
-        page2.checkFields("фамилия", "Петров");
-        page2.checkFields("имя", "Петр");
-        page2.checkFields("отчество", "Петрович");
-        page2.checkFields("день рождения", "01.01.1989");
-        page2.checkFields("серия паспорта", "1234");
-        page2.checkFields("номер паспорта", "222222");
-        page2.checkFields("дата выдачи", "14.03.2009");
-        page2.checkFields("место выдачи", "Трололо");
+        //Ввод данных в заявку по стразователю
+        Page3.fillField("фамилия", "Иванов");
+        Page3.fillField("имя", "Иван");
+        Page3.fillField("отчество", "Иванович");
+        Page3.fillField("день рождения", "17.09.1994");
 
-        page2.clickContinue();
-        page2.checkErrorMessage("Заполнены не все обязательные поля");
+        //Ввод данных паспорта
+        Page3.fillField("серия паспорта", "1111");
+        Page3.fillField("номер паспорта", "111111");
+        Page3.fillField("дата выдачи", "17.09.1994");
+        Page3.fillField("место выдачи", "Москва");
+
+
+        //Проверка ввода данных в заявку по застрахованным
+        Page3.checkFields("фамилия застрахованного","Boos");
+        Page3.checkFields("имя застрахованного","Gleb");
+        Page3.checkFields("дата рождения застрахованного", "17.09.1994");
+
+        //Проверка ввода данных в заявку по стразователю
+        Page3.checkFields("фамилия", "Иванов");
+        Page3.checkFields("имя", "Иван");
+        Page3.checkFields("отчество", "Иванович");
+        Page3.checkFields("день рождения", "17.09.1994");
+
+        //Проверка ввода данных паспорта
+        Page3.checkFields("серия паспорта", "1111");
+        Page3.checkFields("номер паспорта", "111111");
+        Page3.checkFields("дата выдачи", "17.09.1994");
+        Page3.checkFields("место выдачи", "Москва");
+
+
+        //Утверждение данных
+        Page3.clickContinue();
+
+        //Проверка заполненных полей
+        Page3.checkErrorMessage("Заполнены не все обязательные поля");
 
     }
-
 }
