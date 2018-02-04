@@ -9,9 +9,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.util.concurrent.TimeUnit;
+import ru.yandex.qatools.allure.annotations.Step;
 
-
-public class BaseSteps {
+public class Step_Base {
     private static WebDriver driver;
 
     public static WebDriver getDriver(){

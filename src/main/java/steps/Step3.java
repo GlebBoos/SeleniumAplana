@@ -1,28 +1,28 @@
+//Step для страницы с вводо данных и оформлением заявки
 package steps;
 
 import pages.Page3;
+import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
-
 import java.util.HashMap;
 
-/**
- * Created by sonya on 31.01.2018.
- */
-public class RequestSteps {
+
+public class Step3 {
+    WebDriver driver;
 
     @Step("выбрана сумма страховой защиты {0}")
-    public void chooseSum (String sum) {
-        new Page3().chooseSum(sum);
+    public void PressMin () {
+        new Page3(driver).PressMin();
     }
 
     @Step ("выбрано оформление заявки")
-    public void execute () {
-        new Page3().execute();
+    public void minrequest (String sum) {
+        new Page3(driver).minrequest(sum);
     }
 
     @Step ("заполнено поле {0} значением {1}")
     public void fillField(String fieldName, String value) {
-        new Page3().fillField(fieldName,value);
+        new Page3(driver).fillField(fieldName,value);
     }
 
     @Step("поля заполнены")
@@ -30,19 +30,14 @@ public class RequestSteps {
         fields.forEach((k,v)->fillField(k,v));
     }
 
-    @Step ("выбран пол {0}")
-    public void chooseGender (String sex){
-        new Page3().chooseGender(sex);
-    }
-
     @Step ("проверен текст ошибки {0}")
-    public void checkErrorMessage(String error){
-        new Page3().checkErrorMessage(error);
+    public void checkZP(){
+        new Page3(driver).checkZP();
     }
 
     @Step ("проверено значение поля {0} должно иметь значение {1}")
     public void checkField (String field, String expected){
-        new Page3().checkField(field,expected);
+        new Page3(driver).checkFields(field,expected);
     }
 
     @Step("поля проверены")
@@ -51,7 +46,7 @@ public class RequestSteps {
     }
 
     @Step("выбрано продолжение оформления заявки")
-    public void clickContinue (){
-        new Page3().clickContinue();
+    public void EndRequest (){
+        new Page3(driver).EndRequest();
     }
 }

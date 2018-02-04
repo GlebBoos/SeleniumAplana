@@ -1,21 +1,34 @@
-import steps.BaseSteps;
-import steps.MainSteps;
-import steps.RequestSteps;
-import steps.TravelInsuranceSteps;
+import steps.Step_Base;
+import steps.Step1;
+import steps.Step3;
+import steps.Step2;
 import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import java.util.HashMap;
 
-public class Task3 extends BaseSteps{
-    MainSteps mainSteps = new MainSteps();
-    TravelInsuranceSteps travelInsuranceSteps = new TravelInsuranceSteps();
-    RequestSteps requestSteps = new RequestSteps();
+public class Task3 extends Step_Base {
+
+    Step1 step1 = new Step1();
+    Step2 step2 = new Step2();
+    Step3 step3 = new Step3();
     HashMap <String, String> testData = new HashMap<>();
 
-    @Title("Заявка на страхование в Сбербанке")
+
     @Test
-    public void testSberbank(){
+    public void task3selenuim(){
+
+        step1.selectSection("Застраховать себя  и имущество");
+        step1.waitElement(step1.getTravelInsuranceElement("Страхование путешественников"));
+        step1.travelInsurance("Страхование путешественников");
+
+        //step2.waitElement(step2.getTitle());
+        step2.checkSP("Страхование путешественников");
+        step2.changeWindow();
+
+        step3.minrequest("Минимальная");
+        step3.PressMin();
+
         testData.put("фамилия застрахованного", "Ivanov");
         testData.put("имя застрахованного", "Ivan");
         testData.put("дата рождения застрахованного", "01.01.1999");
@@ -28,22 +41,11 @@ public class Task3 extends BaseSteps{
         testData.put("дата выдачи", "14.03.2009");
         testData.put("место выдачи", "Трололо");
 
-        mainSteps.selectSection("Застраховать себя  и имущество");
-        mainSteps.waitElement(mainSteps.getTravelInsuranceElement("Страхование путешественников"));
-        mainSteps.travelInsurance("Страхование путешественников");
+        step3.fillFields(testData);
+        step3.checkFields(testData);
 
-        travelInsuranceSteps.waitElement(travelInsuranceSteps.getTitle());
-        travelInsuranceSteps.checkTitleErrorMessage("Страхование путешественников");
-        travelInsuranceSteps.checkOutOnline();
-        travelInsuranceSteps.switchWindow();
-
-        requestSteps.chooseSum("Минимальная");
-        requestSteps.execute();
-        requestSteps.fillFields(testData);
-        requestSteps.chooseGender("мужской");
-        requestSteps.checkFields(testData);
-        requestSteps.clickContinue();
-        requestSteps.checkErrorMessage("Заполнены не все обязательные поля");
+        step3.EndRequest();
+        step3.checkZP();
     }
 
 }
