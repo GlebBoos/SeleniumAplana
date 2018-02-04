@@ -42,6 +42,10 @@ public class Task2 extends BaseTest{
         Page3.fillField("дата выдачи", "17.09.1994");
         Page3.fillField("место выдачи", "Москва");
 
+        //Ввод контактных данных
+        Page3.fillField("phone", "(985) 683-3950");
+        Page3.fillField("email", "gboos@aplana.com");
+        Page3.fillField("emailValid", "gboos@aplana.com");
 
         //Проверка ввода данных в заявку по застрахованным
         Page3.checkFields("фамилия застрахованного","Boos");
@@ -60,6 +64,10 @@ public class Task2 extends BaseTest{
         Page3.checkFields("дата выдачи", "17.09.1994");
         Page3.checkFields("место выдачи", "Москва");
 
+        //Проверка ввода контактных данных
+        Page3.checkFields("phone", "(985) 683-3950");
+        Page3.checkFields("email", "gboos@aplana.com");
+        Page3.checkFields("emailValid", "gboos@aplana.com");
 
         //Утверждение данных
         Page3.EndRequest();
