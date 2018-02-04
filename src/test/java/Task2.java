@@ -18,14 +18,12 @@ public class Task2 extends BaseTest{
         page1.travelInsurance("Страхование путешественников");
 
         //Выполнение команд для страницы страхования путешественников
-        page2.waitElement(page2.getTitle());
-        page2.checkTitleErrorMessage("Страхование путешественников");
-        page2.checkOutOnline();
-        page2.switchWindow();
+        page2.checkSP();
+        page2.changeWindow();
 
         //Выбор минимального макета для страхования на третьей странице
-        Page3.chooseSum("Минимальная");
-        Page3.execute();
+        Page3.minrequest("Минимальная");
+        Page3.PressMin();
 
         //Ввод данных в заявку по застрахованным
         Page3.fillField("фамилия застрахованного", "Boos");
@@ -64,10 +62,10 @@ public class Task2 extends BaseTest{
 
 
         //Утверждение данных
-        Page3.clickContinue();
+        Page3.EndRequest();
 
         //Проверка заполненных полей
-        Page3.checkErrorMessage("Заполнены не все обязательные поля");
+        Page3.checkZP();
 
     }
 }

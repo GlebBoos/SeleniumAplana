@@ -1,3 +1,5 @@
+//Страница 1: Главная страница
+
 package pages;
 
 import org.openqa.selenium.By;
@@ -16,25 +18,29 @@ public class Page1 {
     @FindBy(xpath = "//div[contains(@class,'bp-area header-container')]")
     WebElement menu;
 
+
+
     public Page1(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-    }
-
-    public void selectSection (String name) {
-        menu.findElement(By.xpath(".//a[@aria-label='Раздел " + name +"']")).click(); // Застраховать себя  и имущество
-    }
-
-    public void travelInsurance (String name) {
-        menu.findElement(By.xpath(".//a[contains(text(),'" + name + "')]")).click(); // Страхование путешественников
-    }
-
-    public WebElement getTravelInsuranceElement (String name) {
-        return menu.findElement(By.xpath(".//a[contains(text(),'" + name + "')]"));
     }
 
     public void waitElement (WebElement element) {
         Wait<WebDriver> wait = new WebDriverWait(driver, 30, 1000);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public void selectSection (String name) {
+        menu.findElement(By.xpath(".//a[@aria-label='Раздел " + name +"']")).click();
+    }
+
+    public void travelInsurance (String name) {
+        menu.findElement(By.xpath(".//a[contains(text(),'" + name + "')]")).click();
+    }
+
+    public WebElement getTravelInsuranceElement (String name) {
+        return menu.findElement(By.xpath(".//a[contains(text(),'" + name + "')]"));
+    }
+
+
 }

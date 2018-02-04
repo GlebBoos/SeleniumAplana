@@ -1,3 +1,5 @@
+//Страница 3: Страница оформления заявки
+
 package pages;
 
 import org.junit.Assert;
@@ -6,86 +8,66 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class Page3 {
     WebDriver driver;
 
+    // Инициализация кнопок и параметров ввода
     @FindBy(xpath = "//section[@class='b-form-section']//div[contains(@class,'b-form-box-block')]")
-    WebElement sumSection;
-
-    @FindBy(xpath = "//span[@class=\"b-button-block-center\"]//*[contains(text(),\"Оформить\")]")
-    WebElement execButton;
-
+    WebElement minS;
+    @FindBy (xpath = "//*[contains(text(),\"Продолжить\")]")
+    WebElement endRequest;
     @FindBy(name = "insured0_surname")
-    WebElement surname1;
-
+    WebElement surname_s;
     @FindBy(name = "insured0_name")
-    WebElement name1;
-
+    WebElement name_s;
     @FindBy(name = "insured0_birthDate")
-    WebElement birthday1;
-
+    WebElement birthday_s;
     @FindBy(name = "surname")
     WebElement surname;
-
     @FindBy(name = "name")
     WebElement name;
-
-    @FindBy(xpath = "//fieldset[@class='b-form-fieldset-splash b-form-margtop-fieldset']")
-    WebElement gender;
-
     @FindBy(name = "birthDate")
     WebElement birthDate;
-
     @FindBy(name = "middlename")
     WebElement middlename;
-
     @FindBy(name = "passport_series")
     WebElement passport_series;
-
     @FindBy(name = "passport_number")
     WebElement passport_number;
-
     @FindBy(name = "issueDate")
     WebElement issueDate;
-
     @FindBy(name = "issuePlace")
     WebElement issuePlace;
 
-    @FindBy (xpath = "//*[contains(text(),\"Продолжить\")]")
-    WebElement continueButton;
-
-    @FindBy (xpath = "//*[@class=\"b-form-center-pos b-form-error-message\"][1]/div")
-    WebElement errorMessage;
 
     public Page3(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
 
-    public void chooseSum (String sum) { // Минимальная
-        sumSection.findElement(By.xpath(".//*[contains(text(),'" + sum + "')]")).click();
+    public void minrequest (String sum) {
+        minS.findElement(By.xpath(".//*[contains(text(),'" + sum + "')]")).click();
     }
 
-    public void execute () {
-        execButton.click();
+    public void PressMin () {
+        driver.findElement(By.xpath("//span[@class=\"b-button-block-center\"]//*[contains(text(),\"Оформить\")]")).click();
     }
 
 
     public void fillField(String fieldName, String value) {
         switch (fieldName){
             case "фамилия застрахованного":
-                fillField(surname1, value);
+                fillField(surname_s, value);
                 break;
             case "имя застрахованного":
-                fillField(name1, value);
+                fillField(name_s, value);
                 break;
             case "дата рождения застрахованного":
-                fillField(birthday1, value);
+                fillField(birthday_s, value);
                 break;
             case "фамилия":
                 fillField(surname, value);
@@ -117,22 +99,18 @@ public class Page3 {
     }
 
 
-    public void checkErrorMessage(String error){
-        String actualValue = errorMessage.getText();
-        Assert.assertTrue(String.format("Получено значение [%s]. Ожидалось [%s]", actualValue, error),
-                actualValue.contains(error));
-    }
+
 
     public void checkFields (String field, String expected){
         switch (field){
             case "фамилия застрахованного":
-                Assert.assertEquals(expected, surname1.getAttribute("value"));
+                Assert.assertEquals(expected, surname_s.getAttribute("value"));
                 break;
             case "имя застрахованного":
-                Assert.assertEquals(expected, name1.getAttribute("value"));
+                Assert.assertEquals(expected, name_s.getAttribute("value"));
                 break;
             case "дата рождения застрахованного":
-                Assert.assertEquals(expected, birthday1.getAttribute("value"));
+                Assert.assertEquals(expected, birthday_s.getAttribute("value"));
                 break;
             case "фамилия":
                 Assert.assertEquals(expected, surname.getAttribute("value"));
@@ -168,8 +146,12 @@ public class Page3 {
         element.sendKeys(value);
     }
 
+    public void EndRequest (){
+        endRequest.click();
+    }
 
-    public void clickContinue (){
-        continueButton.click();
+    public void checkZP(){
+        assertEquals("Заполнены не все обязательные поля",
+                driver.findElement(By.xpath("//div [text()='Заполнены не все обязательные поля']")).getText());
     }
 }
