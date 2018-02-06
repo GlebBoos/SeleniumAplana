@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class Page1 {
+public class MainPage {
     WebDriver driver;
 
     @FindBy(xpath = "//div[contains(@class,'bp-area header-container')]")
@@ -20,7 +20,7 @@ public class Page1 {
 
 
 
-    public Page1(WebDriver driver) {
+    public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }

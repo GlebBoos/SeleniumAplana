@@ -2,22 +2,22 @@
 
 package steps;
 
-import pages.Page2;
+import pages.InsuranceTravelPage;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
 
 
-public class Step2 {
+public class InsuranceTravelStep {
     WebDriver driver;
     @Step("Проверка на ошибки")
     public void checkSP(String errorMessage){
-        new Page2(driver).checkSP();
+        new InsuranceTravelPage(driver).checkSP();
     }
 
 
     @Step("Переход на новую вкладку")
     public void changeWindow () {
-        new Page2(driver).changeWindow();
+        new InsuranceTravelPage(driver).changeWindow();
     }
 
 }

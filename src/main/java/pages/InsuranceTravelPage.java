@@ -10,10 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 import static org.junit.Assert.assertEquals;
 
 
-public class Page2 {
+public class InsuranceTravelPage {
     WebDriver driver;
 
-    public Page2(WebDriver driver) {
+    public InsuranceTravelPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }
@@ -26,7 +26,8 @@ public class Page2 {
     }
     public void checkSP(){
         assertEquals("Страхование путешественников",
-                driver.findElement(By.xpath("//h1[contains(text(),'Страхование путешественников')]")).getText());
+                driver.findElement(By.xpath("//div[@class='sbrf-rich-outer']//h1")).getText());
+
     }
 
 }

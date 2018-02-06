@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import static org.junit.Assert.assertEquals;
 
 
-public class Page3 {
+public class RequestPage {
     WebDriver driver;
 
     // Инициализация кнопок и параметров ввода
@@ -49,7 +49,7 @@ public class Page3 {
     @FindBy(name = "emailValid")
     WebElement EmailValid;
 
-    public Page3(WebDriver driver) {
+    public RequestPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
     }

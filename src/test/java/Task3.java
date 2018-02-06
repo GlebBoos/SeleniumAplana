@@ -1,33 +1,32 @@
 import steps.Step_Base;
-import steps.Step1;
-import steps.Step3;
-import steps.Step2;
+import steps.MainStep;
+import steps.RequestStep;
+import steps.InsuranceTravelStep;
 import org.junit.Test;
-import ru.yandex.qatools.allure.annotations.Title;
 
 import java.util.HashMap;
 
 public class Task3 extends Step_Base {
 
-    Step1 step1 = new Step1();
-    Step2 step2 = new Step2();
-    Step3 step3 = new Step3();
+    MainStep mainStep = new MainStep();
+    InsuranceTravelStep insuranceTravelStep = new InsuranceTravelStep();
+    RequestStep requestStep = new RequestStep();
     HashMap <String, String> testData = new HashMap<>();
 
 
     @Test
     public void task3selenuim(){
 
-        step1.selectSection("Застраховать себя  и имущество");
-        step1.waitElement(step1.getTravelInsuranceElement("Страхование путешественников"));
-        step1.travelInsurance("Страхование путешественников");
+        mainStep.selectSection("Застраховать себя  и имущество");
+        mainStep.waitElement(mainStep.getTravelInsuranceElement("Страхование путешественников"));
+        mainStep.travelInsurance("Страхование путешественников");
 
-        //step2.waitElement(step2.getTitle());
-        step2.checkSP("Страхование путешественников");
-        step2.changeWindow();
+        //insuranceTravelStep.waitElement(insuranceTravelStep.getTitle());
+        insuranceTravelStep.checkSP("Страхование путешественников");
+        insuranceTravelStep.changeWindow();
 
-        step3.minrequest("Минимальная");
-        step3.PressMin();
+        requestStep.minrequest("Минимальная");
+        requestStep.PressMin();
 
         testData.put("фамилия застрахованного", "Ivanov");
         testData.put("имя застрахованного", "Ivan");
@@ -41,11 +40,11 @@ public class Task3 extends Step_Base {
         testData.put("дата выдачи", "14.03.2009");
         testData.put("место выдачи", "Трололо");
 
-        step3.fillFields(testData);
-        step3.checkFields(testData);
+        requestStep.fillFields(testData);
+        requestStep.checkFields(testData);
 
-        step3.EndRequest();
-        step3.checkZP();
+        requestStep.EndRequest();
+        requestStep.checkZP();
     }
 
 }
