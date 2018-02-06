@@ -11,43 +11,29 @@ import java.util.HashMap;
 public class RequestStep {
     WebDriver driver;
 
-    @Step("выбрана сумма страховой защиты {0}")
-    public void PressMin () {
-        new RequestPage(driver).PressMin();
-    }
+    //Блок по выбору минимального пакета страхования путешественника
+    @Step("Поиск минимального пакета страхования путешественников")
+    public void PressMin () { new RequestPage(driver).PressMin(); }
+    @Step ("Выбор минимального пакета страхования путешественников")
+    public void minrequest (String sum) { new RequestPage(driver).minrequest(sum); }
 
-    @Step ("выбрано оформление заявки")
-    public void minrequest (String sum) {
-        new RequestPage(driver).minrequest(sum);
-    }
+    //Заполнение полей данными
+    @Step ("Заполнение полей")
+    public void fillField(String fieldName, String value) { new RequestPage(driver).fillField(fieldName,value); }
+    @Step("Хэш-таблица для ввода данных")
+    public void fillFields(HashMap<String,String> fields){ fields.forEach((k,v)->fillField(k,v)); }
 
-    @Step ("заполнено поле {0} значением {1}")
-    public void fillField(String fieldName, String value) {
-        new RequestPage(driver).fillField(fieldName,value);
-    }
+    //Проверка полей данными
+    @Step ("Проверка данных")
+    public void checkField (String field, String expected){ new RequestPage(driver).checkFields(field,expected); }
+    @Step("Хэш-таблица для проверки данных")
+    public void checkFields(HashMap<String, String>hashMap){ hashMap.forEach((k,v)->checkField(k,v)); }
 
-    @Step("поля заполнены")
-    public void fillFields(HashMap<String,String> fields){
-        fields.forEach((k,v)->fillField(k,v));
-    }
+    //Оформление заявки
+    @Step("Офомрление заявки")
+    public void EndRequest (){ new RequestPage(driver).EndRequest(); }
 
-    @Step ("проверен текст ошибки {0}")
-    public void checkZP(){
-        new RequestPage(driver).checkZP();
-    }
-
-    @Step ("проверено значение поля {0} должно иметь значение {1}")
-    public void checkField (String field, String expected){
-        new RequestPage(driver).checkFields(field,expected);
-    }
-
-    @Step("поля проверены")
-    public void checkFields(HashMap<String, String>hashMap){
-        hashMap.forEach((k,v)->checkField(k,v));
-    }
-
-    @Step("выбрано продолжение оформления заявки")
-    public void EndRequest (){
-        new RequestPage(driver).EndRequest();
-    }
+    //Проверка наличия оповещения, что не все данные заполнены
+    @Step ("Проверка на наличие ошибки")
+    public void checkZP(){ new RequestPage(driver).checkZP(); }
 }

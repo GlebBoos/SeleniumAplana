@@ -10,17 +10,19 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 public class MainStep {
     WebDriver driver;
-    @Step ("выбран пункт меню {0}")
+
+
+    @Step ("Выбор вкладки страхования на основной странице")
     public void selectSection (String name) {
         new MainPage(driver).selectSection(name);
     }
 
-    @Step ("выбран вид страхования {0}")
+    @Step ("Выбор вкладкии страхования пушешественников ")
     public void travelInsurance (String name) {
         new MainPage(driver).travelInsurance(name);
     }
 
-    @Step ("получен вид страхования {0}")
+    @Step ("Получения страхования пушешественников")
     public WebElement getTravelInsuranceElement (String name) {
         return new MainPage(driver).getTravelInsuranceElement(name);
     }
