@@ -7,6 +7,7 @@ import cucumber.api.java.en.When;
 
 
 public class ScenarioSteps {
+
     MainStep mainSteps = new MainStep();
     RequestStep requestSteps = new RequestStep();
     InsuranceTravelStep InsuranceSteps = new InsuranceTravelStep();
