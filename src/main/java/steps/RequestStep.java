@@ -9,31 +9,31 @@ import java.util.HashMap;
 
 
 public class RequestStep {
-    WebDriver driver;
+    //WebDriver driver;
 
     //Блок по выбору минимального пакета страхования путешественника
     @Step("Поиск минимального пакета страхования путешественников")
-    public void PressMin () { new RequestPage(driver).PressMin(); }
+    public void PressMin () { new RequestPage(BaseStep.getDriver()).PressMin(); }
     @Step ("Выбор минимального пакета страхования путешественников")
-    public void minrequest (String sum) { new RequestPage(driver).minrequest(sum); }
+    public void minrequest (String sum) { new RequestPage(BaseStep.getDriver()).minrequest(sum); }
 
     //Заполнение полей данными
     @Step ("Заполнение полей")
-    public void fillField(String fieldName, String value) { new RequestPage(driver).fillField(fieldName,value); }
+    public void fillField(String fieldName, String value) { new RequestPage().fillField(fieldName,value); }
     @Step("Хэш-таблица для ввода данных")
     public void fillFields(HashMap<String,String> fields){ fields.forEach((k,v)->fillField(k,v)); }
 
     //Проверка полей данными
     @Step ("Проверка данных")
-    public void checkField (String field, String expected){ new RequestPage(driver).checkFields(field,expected); }
+    public void checkField (String field, String expected){ new RequestPage().checkFields(field,expected); }
     @Step("Хэш-таблица для проверки данных")
     public void checkFields(HashMap<String, String>hashMap){ hashMap.forEach((k,v)->checkField(k,v)); }
 
     //Оформление заявки
     @Step("Офомрление заявки")
-    public void EndRequest (){ new RequestPage(driver).EndRequest(); }
+    public void EndRequest (){ new RequestPage(BaseStep.getDriver()).EndRequest(); }
 
     //Проверка наличия оповещения, что не все данные заполнены
     @Step ("Проверка на наличие ошибки")
-    public void checkZP(){ new RequestPage(driver).checkZP(); }
+    public void checkZP(){ new RequestPage(BaseStep.getDriver()).checkZP(); }
 }

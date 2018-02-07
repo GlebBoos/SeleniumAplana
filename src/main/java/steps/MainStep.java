@@ -9,26 +9,24 @@ import ru.yandex.qatools.allure.annotations.Step;
 
 
 public class MainStep {
-    WebDriver driver;
-
 
     @Step ("Выбор вкладки страхования на основной странице")
     public void selectSection (String name) {
-        new MainPage(driver).selectSection(name);
+        new MainPage(BaseStep.getDriver()).selectSection(name);
     }
 
     @Step ("Выбор вкладкии страхования пушешественников ")
     public void travelInsurance (String name) {
-        new MainPage(driver).travelInsurance(name);
+        new MainPage(BaseStep.getDriver()).travelInsurance(name);
     }
 
     @Step ("Получения страхования пушешественников")
     public WebElement getTravelInsuranceElement (String name) {
-        return new MainPage(driver).getTravelInsuranceElement(name);
+        return new MainPage(BaseStep.getDriver()).getTravelInsuranceElement(name);
     }
 
     @Step ("Ожидание")
     public void waitElement (WebElement element) {
-        new MainPage(driver).waitElement(element);
+        new MainPage(BaseStep.getDriver()).waitElement(element);
     }
 }
