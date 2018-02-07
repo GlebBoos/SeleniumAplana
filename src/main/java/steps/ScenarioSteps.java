@@ -29,30 +29,22 @@ public class ScenarioSteps {
 
 
     //Блок 2: Работа в меню страхования путешественников
-
+    //Ожидание загрузки страницы
     @Then("^Ожидание: \"(.+)\"$")
     public void stepWaitElement(WebElement nameElement){
         mainSteps.waitElement(nameElement);
     }
 
-    @Then("^произведено ожидание заголовка")
-    public void stepWaitTitle () {
-        InsuranceSteps.waitElement(InsuranceSteps.getTitle());
-    }
-
-    @Then("^заголовок проверен по шаблону \"(.+)\"$")
+    //Проверка заголовка
+    @Then("^Проверка на ошибки заголовка \"(.+)\"$")
     public void stepCheckTitle (String title) {
-        InsuranceSteps.checkTitleErrorMessage(title);
+        InsuranceSteps.checkSP(title);
     }
 
-    @When("^выбирается оформление заявки онлайн")
-    public void stepCheckOutOnline(){
-        InsuranceSteps.checkOutOnline();
-    }
-
-    @Then("^произошла смена рабочего окна")
+    //Переход на новую вкладку
+    @Then("^Переход на новую вкладку")
     public void stepSwitchWindow() {
-        InsuranceSteps.switchWindow();
+        InsuranceSteps.changeWindow();
     }
 
 
@@ -62,11 +54,11 @@ public class ScenarioSteps {
     //Выбор минимального пакета
     @When("^Выбран минимальный пакет страхования: \"(.+)\"$")
     public void stepChooseSum(String sum){
-        requestSteps.PressMin(sum);
+        requestSteps.PressMin();
     }
     @Then("^Переход к этапу ввода данных по заявке")
-    public void stepExecute() {
-        requestSteps.minrequest();
+    public void stepExecute(String sum) {
+        requestSteps.minrequest(sum);
     }
 
     //Ввод данных в поля
@@ -89,7 +81,7 @@ public class ScenarioSteps {
         requestSteps.EndRequest();
     }
     @Then("^Вывод сообщения об ошибке: \"(.+)\"")
-    public void stepCheckError(String errorMessage){
-        requestSteps.checkZP(errorMessage);
+    public void stepCheckError(){
+        requestSteps.checkZP();
     }
 }

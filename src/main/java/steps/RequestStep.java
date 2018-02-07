@@ -19,13 +19,13 @@ public class RequestStep {
 
     //Заполнение полей данными
     @Step ("Заполнение полей")
-    public void fillField(String fieldName, String value) { new RequestPage().fillField(fieldName,value); }
+    public void fillField(String fieldName, String value) { new RequestPage(BaseStep.getDriver()).fillField(fieldName,value); }
     @Step("Хэш-таблица для ввода данных")
     public void fillFields(HashMap<String,String> fields){ fields.forEach((k,v)->fillField(k,v)); }
 
     //Проверка полей данными
     @Step ("Проверка данных")
-    public void checkField (String field, String expected){ new RequestPage().checkFields(field,expected); }
+    public void checkField (String field, String expected){ new RequestPage(BaseStep.getDriver()).checkFields(field,expected); }
     @Step("Хэш-таблица для проверки данных")
     public void checkFields(HashMap<String, String>hashMap){ hashMap.forEach((k,v)->checkField(k,v)); }
 
