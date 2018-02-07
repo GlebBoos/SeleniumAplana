@@ -91,6 +91,7 @@ public class Task1 {
         fillField(By.name("insured0_surname"), "Gleb");
         fillField(By.name("insured0_name"), "Boos");
         fillField(By.name("insured0_birthDate"), "17.09.1994");
+        driver.findElement(By.xpath("//*[@class=\"b-radio-field-entity ng-pristine ng-untouched ng-valid\"][@name=\"male\"]")).click();
 
         //Ввод данных в заявку по стразователю
         fillField(By.name("surname"), "Иванов");
